@@ -30,7 +30,7 @@ struct MainScreen: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 16) {
-                NavigationLink(destination: ComposeView()) {
+                NavigationLink(destination: ComposeView().navigationTitle("Compose")) {
                     Text("Compose")
                         .font(.system(size: 20))
                         .padding()
@@ -40,12 +40,21 @@ struct MainScreen: View {
                         .cornerRadius(8)
                 }
 
-                NavigationLink(destination: ReactContentView()) {
+                NavigationLink(destination: ReactContentView().navigationTitle("React Native")) {
                     Text("React Native")
                         .font(.system(size: 20))
                         .padding()
                         .frame(maxWidth: .infinity)
                         .background(Color.green)
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
+                }
+                NavigationLink(destination: CounterAppSwiftUI().navigationTitle("Swift UI")) {
+                    Text("SwiftUI")
+                        .font(.system(size: 20))
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.orange)
                         .foregroundColor(.white)
                         .cornerRadius(8)
                 }

@@ -87,8 +87,6 @@ const App: React.FC = () => (
         <Counter />
         <Counter />
         <Counter />
-        <Counter />
-        <Counter />
     </Provider>
 );
 

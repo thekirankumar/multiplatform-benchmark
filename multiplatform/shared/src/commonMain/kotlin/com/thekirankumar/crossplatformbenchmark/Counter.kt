@@ -28,6 +28,7 @@ data class CounterState(
     val rate: Float = 0f,
     val timestamps: List<Long> = emptyList()
 )
+
 // We are keeping a moving window of 5 seconds, All timestamps within our window will be kept in `state.timestamps`
 // Windowing for FPS calculation
 val WINDOW_DURATION_MS = 5000L
@@ -53,9 +54,11 @@ val counterReducer: Reducer<CounterState> = { state, action ->
                 timestamps = newTimestamps
             )
         }
+
         else -> state
     }
 }
+
 // Store
 val store = createThreadSafeStore(counterReducer, CounterState())
 
@@ -68,7 +71,7 @@ fun CounterApp() {
     // Auto-increment effect
     SideEffect {
         scope.launch {
-                store.dispatch(CounterAction.Increment)
+            store.dispatch(CounterAction.Increment)
         }
     }
 

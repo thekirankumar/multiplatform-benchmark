@@ -10,6 +10,7 @@
 		058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557BA273AAA24004C7B11 /* Assets.xcassets */; };
 		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
+		7301B1042D1A9405008054AA /* SwiftUIViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7301B1032D1A9405008054AA /* SwiftUIViews.swift */; };
 		73B1484F2D151D8900735FD6 /* ComposeProxies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B1484E2D151D8900735FD6 /* ComposeProxies.swift */; };
 		73B148512D192F4100735FD6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B148502D192F4100735FD6 /* AppDelegate.swift */; };
 		73B148532D19348600735FD6 /* ReactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B148522D19348600735FD6 /* ReactViewController.swift */; };
@@ -37,6 +38,7 @@
 		058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		083114844053B6299D375323 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = ../PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		2152FB032600AC8F00CF470E /* iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp.swift; sourceTree = "<group>"; };
+		7301B1032D1A9405008054AA /* SwiftUIViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIViews.swift; sourceTree = "<group>"; };
 		73B1484E2D151D8900735FD6 /* ComposeProxies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeProxies.swift; sourceTree = "<group>"; };
 		73B148502D192F4100735FD6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		73B148522D19348600735FD6 /* ReactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactViewController.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 				083114844053B6299D375323 /* PrivacyInfo.xcprivacy */,
 				73B148502D192F4100735FD6 /* AppDelegate.swift */,
 				73B148522D19348600735FD6 /* ReactViewController.swift */,
+				7301B1032D1A9405008054AA /* SwiftUIViews.swift */,
 			);
 			path = iosApp;
 			sourceTree = "<group>";
@@ -297,6 +300,7 @@
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				73B148532D19348600735FD6 /* ReactViewController.swift in Sources */,
 				7555FF83242A565900829871 /* MainScreen.swift in Sources */,
+				7301B1042D1A9405008054AA /* SwiftUIViews.swift in Sources */,
 				73B1484F2D151D8900735FD6 /* ComposeProxies.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -433,6 +437,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
+				DEVELOPMENT_TEAM = DR3Y78L242;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -449,7 +454,7 @@
 					"-framework",
 					shared,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = orgIdentifier.iosApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pincode.benchmarktest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -463,6 +468,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
+				DEVELOPMENT_TEAM = DR3Y78L242;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -479,7 +485,7 @@
 					"-framework",
 					shared,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = orgIdentifier.iosApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pincode.benchmarktest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
