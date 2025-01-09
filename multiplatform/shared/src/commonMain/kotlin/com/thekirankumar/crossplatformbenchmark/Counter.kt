@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
 import org.reduxkotlin.Reducer
 import org.reduxkotlin.Store
+import org.reduxkotlin.createStore
 import org.reduxkotlin.threadsafe.createThreadSafeStore
 
 // Actions
@@ -48,7 +49,7 @@ val counterReducer: Reducer<CounterState> = { state, action ->
                 0f
             }
 
-            state.copy(
+            CounterState(
                 counter = state.counter + 1,
                 rate = rate,
                 timestamps = newTimestamps
@@ -60,7 +61,7 @@ val counterReducer: Reducer<CounterState> = { state, action ->
 }
 
 // Store
-val store = createThreadSafeStore(counterReducer, CounterState())
+val store = createStore(counterReducer, CounterState())
 
 // Main Composable
 @Composable

@@ -28,7 +28,7 @@ struct ReactContentView: View {
 
 struct MainScreen: View {
     var body: some View {
-        NavigationStack {
+        NavigationView {
             VStack(spacing: 16) {
                 NavigationLink(destination: ComposeView().navigationTitle("Compose")) {
                     Text("Compose")
