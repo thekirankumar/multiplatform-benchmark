@@ -76,18 +76,18 @@ const Counter: React.FC = () => {
         <View>
             <Text style={{fontSize: 100}}>Counter: {counter}</Text>
             <Text style={{fontSize: 20}}>FPS: {rate}</Text>
-
         </View>
     );
 };
 
 // App
-const App: React.FC = () => (
+function CounterApp(props): React.JSX.Element {
+    return (
     <Provider store={store}>
         <Counter />
         <Counter />
         <Counter />
     </Provider>
-);
+)};
 
-export default App;
+export default CounterApp;

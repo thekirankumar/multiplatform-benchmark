@@ -15,11 +15,26 @@ class ReactNativeActivity : ReactActivity() {
 
     }
 
+
     protected override fun getMainComponentName(): String? {
         return "HelloWorld"
     }
 
     protected override fun createReactActivityDelegate(): ReactActivityDelegate {
-        return DefaultReactActivityDelegate(this, getMainComponentName()!!, fabricEnabled)
+        return object : ReactActivityDelegate (this, mainComponentName) {
+            override fun getLaunchOptions(): Bundle? {
+                // Retrieve data from the Intent
+                val useCaseId = intent?.getStringExtra(UseCases.USE_CASE_INTENT_ID) ?: "default"
+
+                // Pass the data to the React Native app
+                val initialProps = Bundle()
+                initialProps.putString("useCaseID", useCaseId)
+                return initialProps
+            }
+
+            override fun isFabricEnabled(): Boolean {
+                return fabricEnabled
+            }
+        }
     }
 }

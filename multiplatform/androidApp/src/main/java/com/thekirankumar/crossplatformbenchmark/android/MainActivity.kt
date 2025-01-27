@@ -1,5 +1,6 @@
 package com.thekirankumar.crossplatformbenchmark.android
 
+import SwipeableTabs
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -20,38 +21,24 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MainScreen(
-                onComposeClick = {
-                    val intent = Intent(this, ComposeActivity::class.java)
-                    startActivity(intent)
-                },
-                onReactNativeClick = {
-                    val intent = Intent(this, ReactNativeActivity::class.java)
-                    startActivity(intent)
-                }
-            )
+//            MainScreen(
+//                onComposeClick = {
+//                    val intent = Intent(this, ComposeActivity::class.java)
+//                    startActivity(intent)
+//                },
+//                onReactNativeClick = {
+//                    val intent = Intent(this, ReactNativeActivity::class.java)
+//                    startActivity(intent)
+//                }
+//            )
+            SwipeableTabs()
         }
     }
 }
 
 @Composable
 fun MainScreen(onComposeClick: () -> Unit, onReactNativeClick: () -> Unit) {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Column(
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Button(onClick = onComposeClick) {
-                Text(text = "Compose", fontSize = 20.sp)
-            }
-            Button(onClick = onReactNativeClick) {
-                Text(text = "React Native", fontSize = 20.sp)
-            }
-        }
-    }
+
 }
 
 

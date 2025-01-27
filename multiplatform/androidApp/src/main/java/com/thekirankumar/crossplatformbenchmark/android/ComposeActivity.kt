@@ -1,8 +1,8 @@
 package com.thekirankumar.crossplatformbenchmark.android
 
 import android.os.Bundle
+import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -11,20 +11,31 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.thekirankumar.crossplatformbenchmark.CounterApp
 
-class ComposeActivity : AppCompatActivity() {
+class ComposeActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setTitle("Compose")
+
+        val useCaseId = intent.getStringExtra(UseCases.USE_CASE_INTENT_ID) ?: "Unknown Use Case ID"
+        val useCaseTitle = intent.getStringExtra(UseCases.USE_CASE_INTENT_TITLE) ?: "Unknown Use Case Title"
+
+        setTitle("Native $useCaseTitle");
+
         setContent {
-            App()
+            ComposeContent(useCaseId, useCaseTitle)
         }
     }
 
+    @Composable
+    fun ComposeContent(useCaseId: String, useCaseTitle: String) {
+        when(useCaseId) {
+            UseCases.REDUX_COUNTER_ID -> CounterUseCase()
+        }
+    }
 }
 
 @Preview
 @Composable
-fun App() {
+fun CounterUseCase() {
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.Start
