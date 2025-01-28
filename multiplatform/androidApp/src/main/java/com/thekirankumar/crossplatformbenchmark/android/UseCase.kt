@@ -13,7 +13,12 @@ object UseCases {
     const val REDUX_TITLE = "Redux"
     const val REDUX_COUNTER_ID = "redux_counter_id"
     const val REDUX_COUNTER_TITLE = "Redux Counter"
-
+    
+    // Image Use cases
+    const val IMAGE_ID = "image_id"
+    const val IMAGE_TITLE = "Images"
+    const val IMAGE_REMOTE_ID = "image_remote_id"
+    const val IMAGE_REMOTE_TITLE = "Remote images"
 
 }
 

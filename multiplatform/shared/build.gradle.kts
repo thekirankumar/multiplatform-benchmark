@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.compose.multiplatform)
+    kotlin("plugin.serialization") version "2.1.0"
 }
 
 kotlin {
@@ -38,6 +39,14 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
+            implementation(libs.coil.compose) // Coil for image loading
+            implementation(libs.ktor.client.core) // Ktor for API calls
+            implementation(libs.coil.network.ktor)
+            implementation(libs.ktor.client.json)
+            implementation(libs.ktor.client.serialization)
+            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.serialization.kotlinx.json)
+            implementation(libs.kotlinx.serialization.json)
 
 
         }

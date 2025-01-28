@@ -61,6 +61,7 @@ dependencies {
 //    implementation("com.facebook.react:react-native:0.76.5")
     implementation("com.facebook.react:hermes-android:0.76.5")
 //    implementation(project(":react-native-config"))
+    implementation(libs.ktor.client.android)
 }
 
 

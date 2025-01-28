@@ -10,6 +10,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.thekirankumar.crossplatformbenchmark.CounterApp
+import com.thekirankumar.crossplatformbenchmark.ProductGrid
+import com.thekirankumar.crossplatformbenchmark.RemoteImageGrid
 
 class ComposeActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,6 +31,7 @@ class ComposeActivity : ComponentActivity() {
     fun ComposeContent(useCaseId: String, useCaseTitle: String) {
         when(useCaseId) {
             UseCases.REDUX_COUNTER_ID -> CounterUseCase()
+            UseCases.IMAGE_REMOTE_ID -> RemoteImageGrid()
         }
     }
 }
