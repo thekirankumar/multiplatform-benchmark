@@ -96,6 +96,12 @@ fun ReactNativeTabContent() {
             children = listOf(
                 UseCase(Stacks.STACK_REACT_NATIVE_ID, UseCases.REDUX_COUNTER_ID, UseCases.REDUX_COUNTER_TITLE, "A counter implementation using Redux.")
             )
+        ),
+        NestedUseCase(
+            root = UseCase(Stacks.STACK_REACT_NATIVE_ID, UseCases.IMAGE_ID, UseCases.IMAGE_TITLE),
+            children = listOf(
+                UseCase(Stacks.STACK_REACT_NATIVE_ID, UseCases.IMAGE_REMOTE_ID, UseCases.IMAGE_REMOTE_TITLE, "Loading of a grid of remote images")
+            )
         )
     )
 

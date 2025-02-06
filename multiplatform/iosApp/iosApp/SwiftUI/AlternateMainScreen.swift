@@ -30,7 +30,7 @@ struct MainScreen: View {
     var body: some View {
         NavigationView {
             VStack(spacing: 16) {
-                NavigationLink(destination: ComposeView().navigationTitle("Compose")) {
+                NavigationLink(destination: ComposeView(useCaseId: nil, closeable: true).navigationTitle("Compose")) {
                     Text("Compose")
                         .font(.system(size: 20))
                         .padding()
