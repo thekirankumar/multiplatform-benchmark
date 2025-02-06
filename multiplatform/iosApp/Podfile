@@ -17,6 +17,7 @@ if linkage != nil
 end
 
 target 'iosApp' do
+  pod 'Kingfisher', '~> 8.0'
   config = use_native_modules!
 
   use_react_native!(

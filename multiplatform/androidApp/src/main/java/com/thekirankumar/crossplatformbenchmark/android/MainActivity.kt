@@ -1,43 +1,41 @@
 package com.thekirankumar.crossplatformbenchmark.android
 
 import SwipeableTabs
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.compose.ui.tooling.preview.Preview
-import com.thekirankumar.crossplatformbenchmark.android.ComposeActivity
-import com.thekirankumar.crossplatformbenchmark.android.ReactNativeActivity
+import com.thekirankumar.crossplatformbenchmark.AndroidPlatform
+import com.thekirankumar.crossplatformbenchmark.Stacks
+import com.thekirankumar.crossplatformbenchmark.UseCase
+import com.thekirankumar.crossplatformbenchmark.UseCases
 
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        AndroidPlatform.initialize(this, MainActivity::openUseCase)
         setContent {
-//            MainScreen(
-//                onComposeClick = {
-//                    val intent = Intent(this, ComposeActivity::class.java)
-//                    startActivity(intent)
-//                },
-//                onReactNativeClick = {
-//                    val intent = Intent(this, ReactNativeActivity::class.java)
-//                    startActivity(intent)
-//                }
-//            )
             SwipeableTabs()
         }
     }
-}
 
-@Composable
-fun MainScreen(onComposeClick: () -> Unit, onReactNativeClick: () -> Unit) {
+    companion object {
+        fun openUseCase(context: Context, usecase: UseCase) {
+            val intent = if (Stacks.STACK_COMPOSE_ID == usecase.stack) {
+                Intent(context, ComposeActivity::class.java)
+            } else {
+                Intent(context, ReactNativeActivity::class.java)
+            }
+            intent.putExtra(UseCases.USE_CASE_INTENT_ID, usecase.id)
+            intent.putExtra(UseCases.USE_CASE_INTENT_TITLE, usecase.title)
+            //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent)
+        }
+
+    }
 
 }
 
@@ -45,5 +43,5 @@ fun MainScreen(onComposeClick: () -> Unit, onReactNativeClick: () -> Unit) {
 @Preview(showBackground = true)
 @Composable
 fun MainScreenPreview() {
-    MainScreen(onComposeClick = {}, onReactNativeClick = {})
+    SwipeableTabs()
 }

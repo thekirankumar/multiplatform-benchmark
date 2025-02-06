@@ -1,29 +1,41 @@
-import android.content.Intent
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material.Card
+import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Tab
+import androidx.compose.material.TabRow
+import androidx.compose.material.TabRowDefaults
+import androidx.compose.material.TabRowDefaults.tabIndicatorOffset
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
-import androidx.compose.material3.*
-import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import com.thekirankumar.crossplatformbenchmark.android.ComposeActivity
-import com.thekirankumar.crossplatformbenchmark.android.ReactNativeActivity
-import com.thekirankumar.crossplatformbenchmark.android.Stacks
-import com.thekirankumar.crossplatformbenchmark.android.UseCases
+import com.thekirankumar.crossplatformbenchmark.FrameworkStacks.ComposeStack
+import com.thekirankumar.crossplatformbenchmark.FrameworkStacks.ReactNativeStack
+import com.thekirankumar.crossplatformbenchmark.FrameworkStacks.SwiftUIStack
+import com.thekirankumar.crossplatformbenchmark.NestedUseCase
+import com.thekirankumar.crossplatformbenchmark.Stacks
+import com.thekirankumar.crossplatformbenchmark.UseCase
+import com.thekirankumar.crossplatformbenchmark.UseCases
+import com.thekirankumar.crossplatformbenchmark.getPlatform
 import kotlinx.coroutines.launch
 
 @Composable
 fun SwipeableTabs() {
-    val pagerState = rememberPagerState(pageCount = { 3 })
+    val supportedStacks = remember { getPlatform().supportedStacks()}
+    val pagerState = rememberPagerState(pageCount = { supportedStacks.size })
     val coroutineScope = rememberCoroutineScope()
 
     Column(modifier = Modifier.fillMaxSize()) {
@@ -36,9 +48,9 @@ fun SwipeableTabs() {
                 )
             }
         ) {
-            listOf("Native", "React Native", "CMP").forEachIndexed { index, title ->
+            supportedStacks.forEachIndexed { index, stack ->
                 Tab(
-                    text = { Text(title) },
+                    text = { Text(stack.title) },
                     selected = pagerState.currentPage == index,
                     onClick = {
                         coroutineScope.launch {
@@ -54,32 +66,30 @@ fun SwipeableTabs() {
             state = pagerState,
             modifier = Modifier.fillMaxSize()
         ) { page ->
-            when (page) {
-                0 -> NativeTabContent()
-                1 -> ReactNativeTabContent()
-                2 -> CMPTabContent()
+            val frameworkStack = supportedStacks[page]
+            when (frameworkStack) {
+                ComposeStack -> ComposeTabContent()
+                ReactNativeStack -> ReactNativeTabContent()
+                SwiftUIStack -> SwiftUITabContent()
             }
         }
     }
 }
 
-// Data Class for Use Cases
-data class UseCase(val stack: String, val id: String, val title: String, val description: String? = null)
-// Data Class for Nested Use Cases
-data class NestedUseCase(val root: UseCase, val children: List<UseCase>)
+
 @Composable
-fun NativeTabContent() {
+fun ComposeTabContent() {
     val nativeUseCases = listOf(
         NestedUseCase(
-            root = UseCase(Stacks.STACK_NATIVE_ID, UseCases.REDUX_ID, UseCases.REDUX_TITLE),
+            root = UseCase(Stacks.STACK_COMPOSE_ID, UseCases.REDUX_ID, UseCases.REDUX_TITLE),
             children = listOf(
-                UseCase(Stacks.STACK_NATIVE_ID, UseCases.REDUX_COUNTER_ID, UseCases.REDUX_COUNTER_TITLE, "A counter implementation using Redux.")
+                UseCase(Stacks.STACK_COMPOSE_ID, UseCases.REDUX_COUNTER_ID, UseCases.REDUX_COUNTER_TITLE, "A counter implementation using Redux.")
             )
         ),
         NestedUseCase(
-            root = UseCase(Stacks.STACK_NATIVE_ID, UseCases.IMAGE_ID, UseCases.IMAGE_TITLE),
+            root = UseCase(Stacks.STACK_COMPOSE_ID, UseCases.IMAGE_ID, UseCases.IMAGE_TITLE),
             children = listOf(
-                UseCase(Stacks.STACK_NATIVE_ID, UseCases.IMAGE_REMOTE_ID, UseCases.IMAGE_REMOTE_TITLE, "Loading of remote images via coil library")
+                UseCase(Stacks.STACK_COMPOSE_ID, UseCases.IMAGE_REMOTE_ID, UseCases.IMAGE_REMOTE_TITLE, "Loading of remote images via coil library")
             )
         ),
 
@@ -107,12 +117,24 @@ fun ReactNativeTabContent() {
 
     NestedUseCaseList(useCases = reactNativeUseCases)
 }
-// CMP Tab Content
+// Swift Tab Content
 @Composable
-fun CMPTabContent() {
-    val cmpUseCases = listOf<NestedUseCase>()
-
-    NestedUseCaseList(useCases = cmpUseCases)
+fun SwiftUITabContent() {
+    val swiftUseCases = listOf(
+        NestedUseCase(
+            root = UseCase(Stacks.STACK_SWIFTUI_ID, UseCases.REDUX_ID, UseCases.REDUX_TITLE),
+            children = listOf(
+                UseCase(Stacks.STACK_SWIFTUI_ID, UseCases.REDUX_COUNTER_ID, UseCases.REDUX_COUNTER_TITLE, "A counter implementation using Redux.")
+            )
+        ),
+        NestedUseCase(
+            root = UseCase(Stacks.STACK_SWIFTUI_ID, UseCases.REDUX_ID, UseCases.IMAGE_TITLE),
+            children = listOf(
+                UseCase(Stacks.STACK_SWIFTUI_ID, UseCases.IMAGE_REMOTE_ID, UseCases.IMAGE_REMOTE_TITLE, "Loading of a grid of remote images")
+            )
+        )
+    )
+    NestedUseCaseList(useCases = swiftUseCases)
 }
 
 // Reusable Composable for Displaying Nested Use Cases
@@ -130,7 +152,6 @@ fun NestedUseCaseList(useCases: List<NestedUseCase>) {
     }
 }
 
-// Composable for Expandable Use Case Item
 @Composable
 fun ExpandableUseCaseItem(nestedUseCase: NestedUseCase) {
     var isExpanded by remember { mutableStateOf(false) }
@@ -139,10 +160,14 @@ fun ExpandableUseCaseItem(nestedUseCase: NestedUseCase) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 4.dp),
-        elevation = CardDefaults.elevatedCardElevation()
+        elevation = 2.dp
     ) {
         Column(
-            modifier = Modifier.padding(16.dp)
+            modifier = Modifier
+                .padding(16.dp)
+                .animateContentSize( // Animates height changes smoothly
+                    animationSpec = tween(durationMillis = 300, easing = LinearOutSlowInEasing)
+                )
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -150,7 +175,7 @@ fun ExpandableUseCaseItem(nestedUseCase: NestedUseCase) {
             ) {
                 Text(
                     text = nestedUseCase.root.title,
-                    style = MaterialTheme.typography.headlineMedium,
+                    style = MaterialTheme.typography.h5,
                     modifier = Modifier.weight(1f)
                 )
                 Icon(
@@ -173,7 +198,6 @@ fun ExpandableUseCaseItem(nestedUseCase: NestedUseCase) {
 }
 @Composable
 fun UseCaseItem(useCase: UseCase) {
-    val context = LocalContext.current
 
 
     Card(
@@ -182,30 +206,22 @@ fun UseCaseItem(useCase: UseCase) {
             .padding(vertical = 4.dp)
             .clickable {
                 // Launch the appropriate activity based on the use case
-
-                val intent = if (Stacks.STACK_NATIVE_ID == useCase.stack) {
-                    Intent(context, ComposeActivity::class.java)
-                } else {
-                    Intent(context, ReactNativeActivity::class.java)
-                }
-                intent.putExtra(UseCases.USE_CASE_INTENT_ID, useCase.id)
-                intent.putExtra(UseCases.USE_CASE_INTENT_TITLE, useCase.title)
-                context.startActivity(intent)
+                getPlatform().openUseCase(useCase)
             },
-        elevation = CardDefaults.elevatedCardElevation(2.dp)
+        elevation = 2.dp
     ) {
         Column(
             modifier = Modifier.padding(16.dp)
         ) {
             Text(
                 text = useCase.title,
-                style = MaterialTheme.typography.bodyMedium
+                style = MaterialTheme.typography.body2
             )
             if (useCase.description != null) {
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
                     text = useCase.description,
-                    style = MaterialTheme.typography.bodyLarge
+                    style = MaterialTheme.typography.body2
                 )
             }
         }

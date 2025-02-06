@@ -5,7 +5,6 @@ plugins {
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.compose.compiler)
     id("com.facebook.react")
-
 }
 
 
@@ -57,10 +56,8 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     debugImplementation(libs.compose.ui.tooling)
-    implementation("com.facebook.react:react-android:0.76.5")
-//    implementation("com.facebook.react:react-native:0.76.5")
-    implementation("com.facebook.react:hermes-android:0.76.5")
-//    implementation(project(":react-native-config"))
+    implementation(libs.react.android)
+    implementation(libs.hermes.android)
     implementation(libs.ktor.client.android)
 }
 
