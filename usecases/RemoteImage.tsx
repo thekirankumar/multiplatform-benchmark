@@ -67,6 +67,7 @@ const App: React.FC = () => {
         style={styles.image}
         source={{
           uri: item.thumbnail,
+          cache: 'force-cache', // iOS only
         }}
       />
 

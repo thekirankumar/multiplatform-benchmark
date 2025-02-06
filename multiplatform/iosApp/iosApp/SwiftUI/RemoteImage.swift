@@ -80,6 +80,9 @@ struct RemoteImageGrid: View {
     private let columns = [
         GridItem(.fixed(128), spacing: 16), GridItem(.fixed(128), spacing: 16)
     ]
+    
+    let scale = UIScreen.main.scale
+
 
     var body: some View {
         ScrollView {
@@ -89,7 +92,9 @@ struct RemoteImageGrid: View {
                     VStack {
                         // Loads image asynchronously
                         KFImage(URL(string: product.thumbnail
-                            .replacingOccurrences(of: "https", with: "http"))).resizable().frame(width: 128, height: 128).scaledToFit()
+                            .replacingOccurrences(of: "https", with: "http")))
+                        .downsampling(size: CGSize(width: 128 * scale, height: 128 * scale))
+                        .resizable().frame(width: 128, height: 128).scaledToFit()
                         Text(product.title)
                             .font(.caption)
                             .lineLimit(2)
